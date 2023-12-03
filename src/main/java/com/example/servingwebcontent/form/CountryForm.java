@@ -6,19 +6,9 @@ import lombok.Data;
 public class CountryForm {
 
     // country code
-    private String cd;
+    private String countryCode;
 
     // country name
     private String name;
 
-    public CountryForm() {
-        this.cd = "";
-        this.name = "";
-    }
-
-    public CountryForm(String cd, String name) {
-        this.cd = cd;
-        this.name = name;
-    }
-    
 }

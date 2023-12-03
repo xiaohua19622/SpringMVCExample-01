@@ -78,7 +78,7 @@
         <div class="modal fdae col-10" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
             tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                <form>
+                <form id="frmDetail" action="#" method="post" th:object="${provinceForm}">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h1 class="modal-title fs-5" id="staticBackdropLabel">编辑区域</h1>
@@ -87,15 +87,15 @@
                         <div class="modal-body">
                             <div class="mb-3">
                                 <label for="countryCd" class="form-label">国码</label>
-                                <input type="text" class="form-control" id="countryCd">
+                                <input type="text" class="form-control" id="countryCd" th:field="*{countryCd}">
                             </div>
                             <div class="mb-3">
                                 <label for="provCd" class="form-label">省编码</label>
-                                <input type="text" class="form-control" id="provCd">
+                                <input type="text" class="form-control" id="provCd" th:field="*{provCd}">
                             </div>
                             <div class="mb-3">
                                 <label for="provName" class="form-label">省名称</label>
-                                <input type="text" class="form-control" id="provName">
+                                <input type="text" class="form-control" id="provName" th:field="*{provName}">
                             </div>
                         </div>
                         <div class="modal-footer">

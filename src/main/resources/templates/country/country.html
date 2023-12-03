@@ -59,7 +59,7 @@
                             <!--when query button on click, will post data to controller-->
                             <div class="m-3">
                                 <label for="queryInput" class="form-label">国家编码</label>
-                                <input type="text" class="form-control" id="queryInput" th:field="*{mstCountryCD}">
+                                <input type="text" class="form-control" id="queryInput" th:field="*{mstCountryCd}">
                             </div>
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                                 <button id="queryBtn" type="button" class="btn btn-primary me-md-2">查询</button>
@@ -86,14 +86,14 @@
             <div class="collapse show" id="collapseDetail">
                 <div class="card card-body">
                     <!-- th:object -->
-                    <form id="frmDetail" action="#" method="post">
+                    <form id="frmDetail" action="#" method="post" th:object="${countryForm}" >
                         <div class="mb-3">
-                            <label for="countryCodeInput" class="form-label">Email address</label>
-                            <input type="text" class="form-control" id="countryCodeInput" placeholder="country code">
+                            <label for="countryCode" class="form-label">Email address</label>
+                            <input type="text" class="form-control" id="countryCode" th:field="*{countryCode}" placeholder="country code">
                         </div>
                         <div class="mb-3">
-                            <label for="countryNameInput" class="form-label">Example textarea</label>
-                            <input type="text" class="form-control" id="countryNameInput"></input>
+                            <label for="name" class="form-label">Example textarea</label>
+                            <input type="text" class="form-control" id="name" th:field="*{name}"></input>
                         </div>
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                             <button id="updateBtn" type="button" class="btn btn-primary me-md-2">更新</button>

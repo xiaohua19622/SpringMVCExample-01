@@ -1,3 +1,5 @@
+let url ="";
+let msg ="";
 $(document).ready(function () {
     $("#detailContains").css("display", "none");
     // when click the create button, show the detailContains
@@ -10,6 +12,8 @@ $(document).ready(function () {
         $("#detailContains").css("display", "block");
         // hide the queryContainer
         $("#queryContainer").css("display", "none");
+        url = "/country/creat";
+        msg = "新規";
     });
 
     // when click the update button, show the queryContainer
@@ -20,6 +24,14 @@ $(document).ready(function () {
         $("#detailContains").css("display", "none");
         // set the form action for update
         $("#frmDetail").attr("action", "/UpdateCountry");
+        if($(this).attr("id")=="selUpdate"){
+			url = "/country/update";
+			msg = "更新";
+		}else{
+			url = "/country/delete";
+			msg = "削除";
+		}
+        
     });
 
     // when click the return button, hide the detailContains
@@ -42,12 +54,33 @@ $(document).ready(function () {
             success: function (data) {
                 $("#detailContains").css("display", "block");
                 // show the data in the detailContains
-                $("#countryCodeInput").val(data.mstcountrycd);
-                $("#countryNameInput").val(data.mstcountrynanme);
+                $("#countryCode").val(data.countryCode);
+                $("#name").val(data.name);
             },
             error: function (e) {
                 alert("error");
             }
         });
     });
+     $("#updateBtn").on('click', function () {
+
+		   $.ajax({
+	         type: "POST",
+	         url: url,        //  <- controller function name
+	         data: $("#frmDetail").serialize(),
+	         dataType: 'json',
+	         success: function (data) {
+				if(data.status == 0){
+					alert(data.message);;
+					return;
+				}else {
+					alert(msg+"を失敗しました");
+					return;
+				}
+	           },
+	            error: function (e) {
+	                alert(msg+"を失敗しました");
+	          },
+	       });
+	  	});  
 });

@@ -7,12 +7,9 @@ import lombok.Data;
 public class CountrySearchForm {
 
     @NotBlank(message = "ID should not be blank")
-    private String mstCountryCD;
+    private String mstCountryCd;
 
     public CountrySearchForm() {
     }
 
-    public CountrySearchForm(String mstCountryCd) {
-        this.mstCountryCD = mstCountryCd;
-    }
 }
