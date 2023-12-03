@@ -47,64 +47,54 @@ $(document).ready(function () {
 		  alert("修正又は削除の操作を選んでください。");
 		  return;
 	  }
-    // show next selected row
-    if (currentRow <= selectedRow) {
-	　　
-	　 $.ajax({
-	         type: "POST",
-	         url: url,        //  <- controller function name
-	         data: $("#frmDetail").serialize(),
-	         dataType: 'json',
-	         success: function (data) {
-				if(data.status == 0){
-					// 选中行的数据, 处理成功后, 修改状态
-			        var rowData = table.rows({ selected: true }).ids();
-                    var row = table.row("#" + rowData[currentRow]);
-			        var rowBinding = row.data();
-					if (selectedValue == "del") {
-						rowBinding.sts = "已削除";
-						rowBinding.mstcountrycd = $("#countryCd").val();
-						rowBinding.provcode = $("#provCd").val();
-						rowBinding.provname = $("#provName").val();
-						row.data(rowBinding).draw();
-					} else if (selectedValue == "edit") {
-						rowBinding.sts = "已处理";
-						rowBinding.mstcountrycd = $("#countryCd").val();
-						rowBinding.provcode = $("#provCd").val();
-						rowBinding.provname = $("#provName").val();
-						row.data(rowBinding).draw();
-					} else {
-						$("#countryCd").val("");
-						$("#provCd").val("");
-						$("#provName").val("");
-					}
-			        
-			        // 设置该行不可选
-			        row.nodes().to$().addClass("disabled");
-			
-			        currentRow++;
-			        if (currentRow == selectedRow) {
-			          // close modal
-			          $("#closeModalBtn").click();
-			        }
-			        $("#currSpan").text(currentRow + 1);
-			        getRecord();
-					alert(data.message);;
-					return;
-				}else {
-					alert(msg+"を失敗しました");
-					return;
-				}
-	           },
-	            error: function (e) {
-	                alert(msg+"を失敗しました");
-	          },
-	       });
+	  $.ajax({
+		  type: "POST",
+		  url: url,        //  <- controller function name
+		  data: $("#frmDetail").serialize(),
+		  dataType: 'json',
+		  success: function(data) {
+			  if (data.status == 0) {
+				  // 选中行的数据, 处理成功后, 修改状态
+				  var rowData = table.rows({ selected: true }).ids();
+				  var row = table.row("#" + rowData[currentRow]);
+				  if (selectedValue == "del") {
+					  table.row("#" + rowData[0]).remove().draw();
+				  } else if (selectedValue == "edit") {
+				      var rowBinding = row.data();
+					  rowBinding.sts = "已处理";
+					  rowBinding.mstcountrycd = $("#countryCd").val();
+					  rowBinding.provcode = $("#provCd").val();
+					  rowBinding.provname = $("#provName").val();
+					  row.data(rowBinding).draw();
+				  } else {
+					  $("#countryCd").val("");
+					  $("#provCd").val("");
+					  $("#provName").val("");
+				  }
+
+				  // 设置该行不可选
+				  //row.nodes().to$().addClass("disabled");
+
+				  currentRow++;
+				  if (currentRow == selectedRow) {
+					  // close modal
+					  $("#closeModalBtn").click();
+					  return;
+				  }
+				  $("#currSpan").text(currentRow + 1);
+				  getRecord();
+				  alert(data.message);;
+				  return;
+			  } else {
+				  alert(msg + "を失敗しました");
+				  return;
+			  }
+		  },
+		  error: function(e) {
+			  alert(msg + "を失敗しました");
+		  },
+	  });
       
-      
-    } else {
-      // close modal
-    }
   });
 });
 
